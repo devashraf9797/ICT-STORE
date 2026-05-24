@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="About | ASH CS" data-ar="من نحن | ASH CS">About | ASH CS</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cairo (Arabic) + Inter (English) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind Config: Custom ASH CS Color Palette -->
+
+  
+  <!-- Global Styles -->
+<style>
+    body { font-family: Arial, sans-serif; padding: 0; margin: 0; }
+    .navbar { background: #111827; padding: 16px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
+    .logo { color: #FBBF24; font-size: 24px; font-weight: bold; text-decoration: none; }
+    .menu-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; min-width: 44px; min-height: 44px; }
+    .mobile-menu { 
+      background: #111827; 
+      padding: 0 16px; 
+      position: fixed; 
+      top: 60px; 
+      left: 0; 
+      right: 0; 
+      z-index: 40; 
+      max-height: 0; 
+      overflow: hidden; 
+      transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    }
+    .mobile-menu.active { 
+      max-height: 400px; 
+      padding: 16px; 
+    }
+    .mobile-menu a { color: white; display: block; padding: 8px; text-decoration: none; }
+    .mobile-menu a:hover { color: #FBBF24; }
+  </style>
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Global Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">ASH CS</a>
+    
+    <!-- Mobile Menu Button -->
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="services.html" data-i18n="nav.services">Services</a>
+      <a href="cart.html" data-i18n="nav.cart">Cart</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      <a href="info.html" data-i18n="nav.info">Info</a>
+      <a href="entry.html" style="color: #D4AF37; font-weight: bold;" data-i18n="nav.seller-login">Seller Login</a>
+      <a href="admin.html" id="admin-link" style="color: #D4AF37; font-weight: bold; display: none;" data-i18n="nav.admin-panel">Admin Panel</a>
+      <button id="lang-switch" style="background: #FBBF24; color: #111827; font-weight: bold; min-height: 44px; padding: 8px 16px; border-radius: 8px; border: none; width: 100%; text-align: left; margin-top: 8px;" data-i18n="lang.switch">AR</button>
+    </div>
+  </nav>
+
+  <!-- About Section: White Background with Navy Headings -->
+  <section class="bg-white pt-32 pb-16 sm:pt-40 sm:pb-24">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-navy" data-en="About ASH CS" data-ar="عن ASH CS">About ASH CS</h2>
+    
+      <!-- Founder's Note (Responsive: Vertical on Mobile, Horizontal on Desktop) -->
+      <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gold/20 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row gap-6 md:gap-8 items-center mb-12">
+        <!-- Gold Circle Avatar -->
+        <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gold flex items-center justify-center flex-shrink-0">
+          <svg class="w-12 h-12 sm:w-16 sm:h-16 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-xl sm:text-2xl font-bold mb-4 text-navy" data-en="Founder's Note" data-ar="كلمة المؤسس">Founder's Note</h3>
+          <p data-en="I am a freelance designer and IT specialist based in the UAE. With expertise in UI/UX design, branding, and web development, I help businesses grow through innovative design solutions." 
+                data-ar="أنا مصمم ومتخصص في تكنولوجيا المعلومات مستقل يقع في الإمارات. بخبرتي في تصميم UI/UX والهوية التجارية وتطوير الويب، أساعد الشركات على النمو من خلال حلول تصميم مبتكرة." 
+                class="text-slate-dark/80 leading-relaxed mb-4"></p>
+          <p data-en="Skilled in UI/UX, branding, web design, and IT solutions, I focus on delivering high-quality, user-centered designs that drive business growth and enhance user experience." 
+                data-ar="متمرس في UI/UX والهوية التجارية وتصميم المواقع وحلول تكنولوجيا المعلومات، أركز على تقديم تصاميم عالية الجودة تركز على المستخدم وتدفع نمو الأعمال وتعزز تجربة المستخدم." 
+                class="text-slate-dark/80 leading-relaxed mb-4"></p>
+          <p data-en="Custom website design services are also available to meet the unique needs of your business." 
+                data-ar="خدمات تصميم مواقع مخصصة متاحة أيضاً لتلبية الاحتياجات الفريدة لعملك." 
+                class="text-slate-dark/80 leading-relaxed"></p>
+        </div>
+      </div>
+
+      <!-- Mission: Navy Background Section -->
+      <div class="bg-navy p-6 sm:p-8 rounded-xl shadow-lg">
+        <h3 class="text-xl sm:text-2xl font-bold mb-4 text-gold" data-en="Our Mission" data-ar="مهمتنا">Our Mission</h3>
+        <p data-en="To empower UAE investors with data-driven insights, simplifying property investment through transparent analysis and direct access to trusted opportunities." 
+              data-ar="تمكين مستثمري الإمارات برؤى مستندة إلى البيانات، وتبسيط الاستثمار العقاري من خلال تحليل شفاف ووصول مباشر إلى فرص موثوقة." 
+              class="text-lg italic text-white leading-relaxed"></p>
+      </div>
+
+      <!-- Values Grid: 3-Column with Gold Icons -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+        <!-- Innovation -->
+        <div class="text-center p-6 rounded-xl shadow-lg border border-gold/20 hover:scale-105 hover:shadow-xl transition-all duration-300">
+          <div class="w-16 h-16 mx-auto mb-4 bg-gold rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.07-7.07 5 5 0 01-7.07 7.07z"/>
+            </svg>
+          </div>
+          <h4 class="text-xl font-bold mb-2 text-navy" data-en="Innovation" data-ar="ابتكار">Innovation</h4>
+          <p class="text-slate-dark/80" data-en="Cutting-edge design and IT solutions" data-ar="حلول تصميم وتكنولوجيا طرفية">Cutting-edge design and IT solutions</p>
+        </div>
+        <!-- Quality -->
+        <div class="text-center p-6 rounded-xl shadow-lg border border-gold/20 hover:scale-105 hover:shadow-xl transition-all duration-300">
+          <div class="w-16 h-16 mx-auto mb-4 bg-gold rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h4 class="text-xl font-bold mb-2 text-navy" data-en="Quality" data-ar="جودة">Quality</h4>
+          <p class="text-slate-dark/80" data-en="High-quality deliverables that exceed expectations" data-ar="مخرجات عالية الجودة تتجاوز التوقعات">High-quality deliverables that exceed expectations</p>
+        </div>
+        <!-- Support -->
+        <div class="text-center p-6 rounded-xl shadow-lg border border-gold/20 hover:scale-105 hover:shadow-xl transition-all duration-300">
+          <div class="w-16 h-16 mx-auto mb-4 bg-gold rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 117.07-7.07 5 5 0 01-7.07 7.07z"/>
+            </svg>
+          </div>
+          <h4 class="text-xl font-bold mb-2 text-navy" data-en="Support" data-ar="دعم">Support</h4>
+          <p class="text-slate-dark/80" data-en="Dedicated WhatsApp support" data-ar="دعم واتساب مخصص">Dedicated WhatsApp support</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer: Navy Background with Gold Social Icons -->
+  <footer class="bg-navy text-white py-12 px-4">
+    <div class="container mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+        <div class="text-center md:text-left">
+          <h3 class="text-2xl font-bold mb-2 text-gold" data-en="ASH CS Creative Studio" data-ar="استوديو ASH CS الإبداعي">ASH CS Creative Studio</h3>
+          <p class="text-gray-300" data-en="Modern Design & IT Solutions for UAE Businesses" data-ar="حلول التصميم وتكنولوجيا المعلومات الحديثة لشركات الإمارات">Modern Design & IT Solutions for UAE Businesses</p>
+        </div>
+        <div class="flex gap-6">
+
+          <!-- Email Gold Icon -->
+          <a href="mailto:finalproject900@gmail.com" class="text-white hover:text-gold transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-navy-light mt-8 pt-8 text-center text-gray-300">
+        <p data-en="© 2026 ASH CS Creative Studio. All rights reserved." data-ar="© 2026 استوديو ASH CS الإبداعي. جميع الحقوق محفوظة.">© 2026 ASH CS Creative Studio. All rights reserved.</p>
+        <div class="flex justify-center gap-4 mt-4">
+          <a href="privacy.html" class="hover:text-gold transition-colors" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons Container -->
+  <div id="floating-buttons" style="position: fixed; bottom: 32px; right: 32px; display: flex; flex-direction: column; gap: 16px; z-index: 999;">
+    <!-- Floating Cart Button -->
+    <a href="cart.html" style="background: #FBBF24; color: #111827; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(251,191,36,0.3); transition: transform 0.3s; text-decoration: none;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+      <svg width="30" height="30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.2 2M7 13h10l2-8H5.4M7 13L5.4 5M7 13l-2.1 4M17 13a2 2 0 1 0 0 4 0z"></path>
+      </svg>
+    </a>
+
+  </div>
+
+  <script src="js/main.js"></script>
+
+  <script src="js/protect.js"></script>
+<script>
+    // Toggle mobile menu
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      if (menu) {
+        menu.classList.toggle("active");
+      }
+    }
+  </script>
+</body>
+</html>
