@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | ASH CS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { font-family: var(--font-en); padding: 0; margin: 0; background: var(--navy); }
+    .navbar { background: rgba(17,24,39,0.95); padding: 16px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 50; backdrop-filter: blur(12px); }
+    .logo { color: #D4AF37; font-size: 24px; font-weight: 800; text-decoration: none; }
+    .menu-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; min-width: 44px; min-height: 44px; }
+    .mobile-menu { background: rgba(17,24,39,0.98); padding: 0 16px; position: fixed; top: 60px; left: 0; right: 0; z-index: 40; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; }
+    .mobile-menu.active { max-height: 400px; padding: 16px; }
+    .mobile-menu a { color: white; display: block; padding: 8px; text-decoration: none; }
+    .mobile-menu a:hover { color: #D4AF37; }
+    .services-section { padding: 100px 20px 40px; min-height: 100vh; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; }
+    #service-configurator.active { display: flex !important; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="logo">ASH CS</a>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="services.html" style="color: #D4AF37;" data-i18n="nav.services">Services</a>
+      <a href="cart.html" data-i18n="nav.cart">Cart</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      <a href="info.html" data-i18n="nav.info">Info</a>
+      <a href="entry.html" style="color: #D4AF37; font-weight: bold;" data-i18n="nav.seller-login">Seller Login</a>
+      <a href="admin.html" id="admin-link" style="color: #D4AF37; font-weight: bold; display: none;" data-i18n="nav.admin-panel">Admin Panel</a>
+      <button id="lang-switch" style="background: #D4AF37; color: #0A192F; font-weight: bold; min-height: 44px; padding: 8px 16px; border-radius: 8px; border: none; width: 100%; text-align: left; margin-top: 8px;" data-i18n="lang.switch">AR</button>
+    </div>
+  </nav>
+
+  <section class="services-section">
+    <h1 class="gradient-text" style="text-align: center; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 16px;" data-i18n="services.premium">Our Premium Services</h1>
+    <div class="gold-divider"></div>
+    <p style="text-align: center; color: #e2e8f0; margin-bottom: 40px; margin-top: 16px;" data-i18n="services.click-hint">Click on any service to configure your order</p>
+    <div class="services-grid" id="servicesGrid"></div>
+  </section>
+
+  <div id="service-configurator" onclick="if(event.target===this)closeModal()" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; display: none; overflow-y: auto;">
+    <div class="modal-content" style="max-width: 500px; margin: 60px auto;">
+      <button onclick="closeModal()" style="position: absolute; top: 8px; right: 8px; background: #D4AF37; border: none; font-size: 22px; font-weight: bold; cursor: pointer; color: #0A192F; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; line-height: 1;">✕</button>
+      <div id="progress-bar" style="width: 100%; height: 4px; background: rgba(212,175,55,0.2); border-radius: 2px; margin-bottom: 16px;">
+        <div id="progress-fill" style="height: 100%; background: #D4AF37; border-radius: 2px; width: 0%; transition: width 0.3s;"></div>
+      </div>
+      <div id="step-container" style="margin: 16px 0; color: white;"></div>
+      <div style="display: flex; gap: 12px; margin-top: 16px;">
+        <button id="back-btn" onclick="previousStep()" style="flex: 1; background: rgba(255,255,255,0.1); color: white; font-weight: bold; min-height: 44px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;" data-i18n="btn.back">Back</button>
+        <button id="next-btn" onclick="nextStep()" style="flex: 1; background: #D4AF37; color: #0A192F; font-weight: bold; min-height: 44px; border-radius: 8px; border: none; cursor: pointer;" data-i18n="btn.next">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cart-toast" style="position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: #D4AF37; color: #0A192F; padding: 12px 24px; border-radius: 12px; box-shadow: 0 8px 32px rgba(212,175,55,0.3); z-index: 1001; opacity: 0; transition: opacity 0.3s; font-weight: bold;"></div>
+
+  <div id="floating-buttons" style="position: fixed; bottom: 32px; right: 32px; display: flex; flex-direction: column; gap: 16px; z-index: 999;">
+    <a href="cart.html" style="background: linear-gradient(135deg, #D4AF37, #C4A035); color: #0A192F; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(212,175,55,0.4); transition: all 0.3s; text-decoration: none;" onmouseover="this.style.transform='scale(1.15)';this.style.boxShadow='0 8px 32px rgba(212,175,55,0.6)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(212,175,55,0.4)'">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.2 2M7 13h10l2-8H5.4M7 13L5.4 5M7 13l-2.1 4M17 13a2 2 0 1 0 0 4 0z"></path></svg>
+    </a>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/services.js"></script>
+  <script>
+    function toggleMenu() { document.getElementById("mobileMenu").classList.toggle("active"); }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var adminLink = document.getElementById("admin-link");
+      if (adminLink && typeof isAdmin === 'function' && isAdmin()) adminLink.style.display = 'block';
+    });
+
+    // SVG icons per service
+    function getServiceIcon(id) {
+      var icons = {
+        'ui-ux': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><circle cx="9" cy="10" r="1.5"/><circle cx="15" cy="10" r="1.5"/><path d="M12 13.5c-1.5 0-2.5-1-2.5-2.5"/></svg>',
+        'branding': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/><circle cx="12" cy="12" r="4"/></svg>',
+        'logos': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z"/></svg>',
+        'business-cards': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="9" cy="15" r="2"/><path d="M15 15h4"/></svg>',
+        'cv-design': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>'
+      };
+      return icons[id] || icons['ui-ux'];
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var grid = document.getElementById("servicesGrid");
+      if (typeof services !== "undefined" && grid) {
+        services.forEach(function(service) {
+          var iconSvg = getServiceIcon(service.id);
+          var priceHTML = getDiscountedPriceHTML(service);
+
+          var card = document.createElement("div");
+          card.className = "flip-card scroll-fade";
+
+          card.innerHTML =
+            '<div class="flip-card-inner">' +
+              '<div class="flip-card-front">' +
+                '<div class="icon-wrap">' + iconSvg + '</div>' +
+                '<h3>' + service.name.en + '</h3>' +
+                '<p>' + (typeof t === 'function' ? t('services.hover') : 'Click to see details') + '</p>' +
+              '</div>' +
+              '<div class="flip-card-back">' +
+                '<h4>' + service.name.en + '</h4>' +
+                '<p class="desc">' + service.description.en + '</p>' +
+                '<div class="price-area">' + priceHTML + '</div>' +
+                '<button onclick="event.stopPropagation();openConfigurator(\'' + service.id + '\');" class="btn btn-primary" style="cursor:pointer;">' + (typeof t === 'function' ? t('btn.add-to-cart') : 'Add to Cart') + '</button>' +
+              '</div>' +
+            '</div>';
+
+          grid.appendChild(card);
+        });
+        setTimeout(function() {
+          document.querySelectorAll('.scroll-fade').forEach(function(el) { el.classList.add('visible'); });
+        }, 100);
+      } else {
+        document.body.innerHTML += "<p style='color:red;padding:20px;'>ERROR: services.js not loaded or has syntax error!</p>";
+      }
+    });
+  </script>
+  <script src="js/protect.js"></script>
+</body>
+</html>
